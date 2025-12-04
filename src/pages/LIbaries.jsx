@@ -7,7 +7,7 @@ const LIbaries = () => {
   const [loading, setLoading] = useState(true);
   const fetchLibraries = async () => {
     try {
-      const res = await Libraries.get('/libraries');
+      const res = await Libraries.get('/libraries/libraries');
       setLibraries(res.data);
     } catch (error) {
       console.error('Kitobxonalarni olishda xatolik:', error);

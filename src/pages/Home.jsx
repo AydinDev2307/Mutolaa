@@ -8,7 +8,7 @@ const Home = ({ searchQuery = '' }) => {
   const [showAll, setShowAll] = useState(false);
   const fetchBooks = async () => {
     try {
-      const res = await Books.get('/books');
+      const res = await Books.get('/books/books');
       setPopularBooks(res.data);
     } catch (error) {
       console.error('Kitoblarni olishda xatolik:', error);
