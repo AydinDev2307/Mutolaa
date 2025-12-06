@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Flex } from '@mantine/core';
 import { Libraries } from '../libraries/GetLibraries';
+import { useNavigate } from 'react-router-dom';
 
 const LIbaries = () => {
   const [libraries, setLibraries] = useState([]);
@@ -18,6 +19,8 @@ const LIbaries = () => {
   useEffect(() => {
     fetchLibraries();
   }, []);
+  const libraryID = useNavigate();
+
   return (
     <>
       <style>{`
@@ -172,30 +175,34 @@ const LIbaries = () => {
                 Jami: {libraries.length} ta kutubxona
               </p>
             </Flex>
-
             <div className="libraries-grid">
               {loading ? (
                 <p>Yuklanmoqda...</p>
               ) : (
                 libraries.map((library) => (
-                  <div key={library.id} className="library-card">
+                  <div
+                    key={library.id}
+                    className="library-card"
+                    onClick={() => libraryID(`/detailLibraries/${library.id}`)}>
                     <div className="library-icon">📚</div>
                     <h3 className="library-name">{library.name}</h3>
+
                     <div className="library-info">
                       <div className="info-item">
                         <div className="info-icon">📍</div>
                         <span>{library.address}</span>
                       </div>
+
                       <div className="info-item">
                         <span>{library.is_active}</span>
                       </div>
+
                       <div className="info-item">
                         <div className="info-icon">📖</div>
-                        <span>
-                          {library.total_books.toLocaleString()} ta kitob
-                        </span>
+                        <span>{library.total_books} ta kitob</span>
                       </div>
                     </div>
+
                     <div className="library-badge">Hamkor kutubxona</div>
                   </div>
                 ))

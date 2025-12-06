@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Detail from './pages/Detail';
+import DetailLibraries from './pages/DetailLibraries';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,6 +25,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/libraries" element={<LIbaries />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/detailLibraries/:id" element={<DetailLibraries />} />
+          <Route path="*" element={<div>404 Not Found</div>} />
         </Route>
       </Routes>
       <Footer />

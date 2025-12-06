@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Flex, Container } from '@mantine/core';
 import { Books } from '../booksAPI/BooksAPI.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Home = ({ searchQuery = '' }) => {
   const [popularBooks, setPopularBooks] = useState([]);
@@ -16,7 +17,7 @@ const Home = ({ searchQuery = '' }) => {
       setLoading(false);
     }
   };
-
+  const detail = useNavigate();
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -260,7 +261,11 @@ const Home = ({ searchQuery = '' }) => {
             ) : (
               <Flex gap="20px" wrap="wrap" style={{ marginTop: '30px' }}>
                 {displayedBooks?.map((book) => (
-                  <div key={book.id} className="book-card">
+                  <div
+                    key={book.id}
+                    className="book-card"
+                    onClick={() => detail(`detail/${book.id}`)}
+                    cursor="pointer">
                     <div className="book-image">📚</div>
                     <h4>Nomi: {book.name}</h4>
                     <p style={{ fontSize: '14px', color: 'gray' }}>
