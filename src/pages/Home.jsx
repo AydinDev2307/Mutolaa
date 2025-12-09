@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Flex, Container } from '@mantine/core';
-import { Books } from '../booksAPI/BooksAPI.jsx';
+import { BooksAPI } from '../centerAPI/APIs.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({ searchQuery = '' }) => {
@@ -9,7 +9,7 @@ const Home = ({ searchQuery = '' }) => {
   const [showAll, setShowAll] = useState(false);
   const fetchBooks = async () => {
     try {
-      const res = await Books.get('/books/books');
+      const res = await BooksAPI.get('/books/books');
       setPopularBooks(res.data);
     } catch (error) {
       console.error('Kitoblarni olishda xatolik:', error);

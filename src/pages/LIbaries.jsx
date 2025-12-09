@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Flex } from '@mantine/core';
-import { Libraries } from '../libraries/GetLibraries';
+import { Libraries } from '../centerAPI/APIs.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const LIbaries = () => {

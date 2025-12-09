@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
-import { Container } from '@mantine/core';
+import { Button, Input, PasswordInput } from '@mantine/core';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { LOGIN } from '../centerAPI/APIs';
+import authStore from '../store/authStore';
+import { useRef } from 'react';
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
+  const { login } = authStore();
+  const numberRef = useRef();
+  const passRef = useRef();
+  const navigate = useNavigate();
+
+  const { mutate: loginMutate } = useMutation({
+    mutationKey: ['login'],
+    mutationFn: (body) => LOGIN.post('/auth/login/', body),
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
+  function handleSubmitLogin(e) {
     e.preventDefault();
-      };
+    const newUser = {
+      password: passRef.current.value,
+      phone: numberRef.current.value,
+    };
+    loginMutate(newUser, {
+      onSuccess: (res) => {
+        login(res.data.user, res.data.access);
+        if (newUser) return navigate('/');
+      },
+      onError: () => {
+        alert('Login yoki parol xato!');
+      },
+    });
+  }
 
   return (
     <>
@@ -35,15 +48,42 @@ const Login = () => {
         .login-container {
           background: white;
           border-radius: 30px;
-          padding: 50px;
-          max-width: 480px;
+          padding: 60px 50px;
+          max-width: 500px;
           width: 100%;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          position: relative;
+        }
+
+        .back-button {
+          position: absolute;
+          top: 30px;
+          left: 30px;
+          background: rgba(102, 126, 234, 0.1);
+          color: #667eea;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .back-button:hover {
+          background: #667eea;
+          color: white;
+          transform: translateX(-3px);
         }
 
         .login-header {
           text-align: center;
           margin-bottom: 40px;
+          margin-top: 20px;
         }
 
         .login-logo {
@@ -58,7 +98,7 @@ const Login = () => {
         }
 
         .login-title {
-          font-size: 1.8rem;
+          font-size: 2rem;
           font-weight: 700;
           color: #2d3748;
           margin-bottom: 10px;
@@ -67,54 +107,68 @@ const Login = () => {
         .login-subtitle {
           font-size: 1rem;
           color: #718096;
+          line-height: 1.5;
         }
 
         .form-group {
-          margin-bottom: 25px;
+          margin-bottom: 20px;
         }
 
         .form-label {
           display: block;
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           font-weight: 600;
           color: #4a5568;
           margin-bottom: 8px;
         }
 
-        .form-input {
+        .mantine-Input-input {
+          padding: 14px 18px !important;
+          font-size: 1rem !important;
+          border: 2px solid #e2e8f0 !important;
+          border-radius: 12px !important;
+          transition: all 0.3s ease !important;
+          background: #f7fafc !important;
+        }
+
+        .mantine-Input-input:focus {
+          border-color: #667eea !important;
+          background: white !important;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        }
+
+        .mantine-PasswordInput-input {
+          padding: 14px 18px !important;
+          font-size: 1rem !important;
+          border: 2px solid #e2e8f0 !important;
+          border-radius: 12px !important;
+          transition: all 0.3s ease !important;
+          background: #f7fafc !important;
+        }
+
+        .mantine-PasswordInput-input:focus {
+          border-color: #667eea !important;
+          background: white !important;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        }
+
+        .mantine-Button-root {
           width: 100%;
-          padding: 14px 18px;
-          font-size: 1rem;
-          border: 2px solid #e2e8f0;
-          border-radius: 12px;
-          outline: none;
-          transition: all 0.3s ease;
-          background: #f7fafc;
+          height: 46px !important;
+          font-size: 1.1rem !important;
+          font-weight: 700 !important;
+          color: white !important;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+          border: none !important;
+          border-radius: 12px !important;
+          cursor: pointer !important;
+          transition: all 0.3s ease !important;
+          margin-top: 10px !important;
         }
 
-        .form-input:focus {
-          border-color: #667eea;
-          background: white;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .submit-btn {
-          width: 100%;
-          padding: 16px;
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: white;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          border: none;
-          border-radius: 12px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          margin-top: 10px;
-        }
-
-        .submit-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        .mantine-Button-root:hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
         }
 
         .toggle-form {
@@ -127,7 +181,6 @@ const Login = () => {
         .toggle-link {
           color: #667eea;
           font-weight: 600;
-          cursor: pointer;
           text-decoration: none;
         }
 
@@ -135,67 +188,9 @@ const Login = () => {
           text-decoration: underline;
         }
 
-        .divider {
-          display: flex;
-          align-items: center;
-          margin: 30px 0;
-          color: #a0aec0;
-          font-size: 0.9rem;
-        }
-
-        .divider::before,
-        .divider::after {
-          content: '';
-          flex: 1;
-          height: 1px;
-          background: #e2e8f0;
-        }
-
-        .divider span {
-          padding: 0 15px;
-        }
-
-        .social-login {
-          display: flex;
-          gap: 15px;
-        }
-
-        .social-btn {
-          flex: 1;
-          padding: 12px;
-          border: 2px solid #e2e8f0;
-          border-radius: 12px;
-          background: white;
-          cursor: pointer;
-          font-size: 1.5rem;
-          transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-          border-color: #667eea;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .forgot-password {
-          text-align: right;
-          margin-top: 10px;
-        }
-
-        .forgot-password a {
-          color: #667eea;
-          font-size: 0.9rem;
-          text-decoration: none;
-          font-weight: 600;
-        }
-
-        .forgot-password a:hover {
-          text-decoration: underline;
-        }
-
         @media (max-width: 768px) {
           .login-container {
-            padding: 30px 25px;
+            padding: 40px 25px;
           }
 
           .login-logo {
@@ -205,112 +200,62 @@ const Login = () => {
           .login-title {
             font-size: 1.5rem;
           }
+
+          .back-button {
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+          }
         }
       `}</style>
 
       <div className="login-page">
-        <Container>
-          <div className="login-container">
-            <div className="login-header">
-              <h1 className="login-logo">
-                Mutol<span>aa</span>
-              </h1>
-              <h2 className="login-title">
-                {isLogin ? 'Xush kelibsiz!' : "Ro'yxatdan o'tish"}
-              </h2>
-              <p className="login-subtitle">
-                {isLogin
-                  ? "Hisobingizga kiring va o'qishni davom ettiring"
-                  : "Yangi hisob yarating va minglab kitoblardan bahramand bo'ling"}
-              </p>
+        <div className="login-container">
+          <Link to="/" className="back-button">
+            ← Orqaga
+          </Link>
+
+          <div className="login-header">
+            <h1 className="login-logo">
+              Mutol<span>aa</span>
+            </h1>
+            <h2 className="login-title">Tizimga kirish</h2>
+            <p className="login-subtitle">
+              Platformadan to'liq foydalanish uchun tizimga kiring
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmitLogin}>
+            <div className="form-group">
+              <label className="form-label">Telefon raqam</label>
+              <Input
+                ref={numberRef}
+                type="text"
+                placeholder="+998 __ ___ __ __"
+                required
+              />
             </div>
 
-            <form onSubmit={handleSubmit}>
-              {!isLogin && (
-                <div className="form-group">
-                  <label className="form-label">Ism va Familiya</label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-input"
-                    placeholder="Ismingizni kiriting"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required={!isLogin}
-                  />
-                </div>
-              )}
-
-              <div className="form-group">
-                <label className="form-label">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  className="form-input"
-                  placeholder="example@email.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Parol</label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-input"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              {isLogin && (
-                <div className="forgot-password">
-                  <a href="#">Parolni unutdingizmi?</a>
-                </div>
-              )}
-
-              <button type="submit" className="submit-btn">
-                {isLogin ? 'Kirish' : "Ro'yxatdan o'tish"}
-              </button>
-            </form>
-
-            <div className="divider">
-              <span>yoki</span>
+            <div className="form-group">
+              <label className="form-label">Parol</label>
+              <PasswordInput
+                ref={passRef}
+                placeholder="Parolni kiriting..."
+                required
+              />
             </div>
 
-            <div className="social-login">
-              <button className="social-btn">G</button>
-              <button className="social-btn">f</button>
-              <button className="social-btn">@</button>
-            </div>
+            <Button type="submit">Tizimga kiring</Button>
 
             <div className="toggle-form">
-              {isLogin ? (
-                <>
-                  Hisobingiz yo'qmi?{' '}
-                  <span
-                    className="toggle-link"
-                    onClick={() => setIsLogin(false)}>
-                    Ro'yxatdan o'tish
-                  </span>
-                </>
-              ) : (
-                <>
-                  Hisobingiz bormi?{' '}
-                  <span
-                    className="toggle-link"
-                    onClick={() => setIsLogin(true)}>
-                    Kirish
-                  </span>
-                </>
-              )}
+              Hisobingiz yo'qmi?{' '}
+              <NavLink to="/register" className="toggle-link">
+                Ro'yxatdan o'ting
+              </NavLink>
             </div>
-          </div>
-        </Container>
+          </form>
+        </div>
       </div>
     </>
   );

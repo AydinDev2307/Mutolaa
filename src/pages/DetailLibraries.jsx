@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Libraries } from '../libraries/GetLibraries';
+import { Libraries } from '../centerAPI/APIs.jsx';
 
 const DetailLibraries = () => {
   const { id } = useParams();

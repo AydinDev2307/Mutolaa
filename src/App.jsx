@@ -9,7 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Detail from './pages/Detail';
 import DetailLibraries from './pages/DetailLibraries';
-
+import AddBook from './pages/AddBook';
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -27,6 +27,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/detailLibraries/:id" element={<DetailLibraries />} />
+          <Route path="/addBook" element={<AddBook />} />
           <Route path="*" element={<div>404 Not Found</div>} />
         </Route>
       </Routes>

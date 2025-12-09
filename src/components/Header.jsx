@@ -1,9 +1,11 @@
-import { Flex } from '@mantine/core';
+import { Button, Center, Flex } from '@mantine/core';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Container } from '@mantine/core';
 import { useState } from 'react';
+import authStore from '../store/authStore';
 
 const Header = ({ onSearch }) => {
+  const { isAuth, logout } = authStore();
   const [query, setQuery] = useState('');
 
   function handleInput(e) {
@@ -149,7 +151,17 @@ const Header = ({ onSearch }) => {
               <NavLink to="/">Home</NavLink>
               <NavLink to="/about">About</NavLink>
               <NavLink to="/libraries">Libraries</NavLink>
-              <NavLink to="/login">Login</NavLink>
+              {isAuth ? (
+                <Flex align="center" gap="20px">
+                  <h3 style={{ color: '#667eea' }}>Admin</h3>
+                  <Button color="red" onClick={logout}>
+                    Logout
+                  </Button>
+                  <NavLink to="/addBook">Kitob Qo'shish</NavLink>
+                </Flex>
+              ) : (
+                <NavLink to="/login">Login</NavLink>
+              )}
             </nav>
             <input
               type="text"
