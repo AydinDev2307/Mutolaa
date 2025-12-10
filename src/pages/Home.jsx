@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Flex, Container } from '@mantine/core';
+import { Flex, Container, Button } from '@mantine/core';
 import { BooksAPI } from '../centerAPI/APIs.jsx';
 import { useNavigate } from 'react-router-dom';
+import authStore from '../store/authStore.jsx';
 
 const Home = ({ searchQuery = '' }) => {
+  const { isAuth } = authStore();
   const [popularBooks, setPopularBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
@@ -21,6 +23,18 @@ const Home = ({ searchQuery = '' }) => {
   useEffect(() => {
     fetchBooks();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await BooksAPI.delete(`/books/book/${id}/`);
+      alert("Kitob muvaffaqiyatli o'chirildi!");
+      console.log(res.data);
+      setPopularBooks((prev) => prev.filter((book) => book.id !== id));
+    } catch (err) {
+      console.error(err);
+      alert('Xatolik: ' + JSON.stringify(err.response?.data));
+    }
+  };
   const filteredBooks = popularBooks.filter(
     (book) =>
       book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -261,12 +275,12 @@ const Home = ({ searchQuery = '' }) => {
             ) : (
               <Flex gap="20px" wrap="wrap" style={{ marginTop: '30px' }}>
                 {displayedBooks?.map((book) => (
-                  <div
-                    key={book.id}
-                    className="book-card"
-                    onClick={() => detail(`detail/${book.id}`)}
-                    cursor="pointer">
-                    <div className="book-image">📚</div>
+                  <div key={book.id} className="book-card" cursor="pointer">
+                    <div
+                      className="book-image"
+                      onClick={() => detail(`detail/${book.id}`)}>
+                      📚
+                    </div>
                     <h4>Nomi: {book.name}</h4>
                     <p style={{ fontSize: '14px', color: 'gray' }}>
                       Yozuvchi: {book.author}
@@ -277,6 +291,11 @@ const Home = ({ searchQuery = '' }) => {
                     <p style={{ fontSize: '14px', color: 'gray' }}>
                       Kutubxonadagi soni: {book.quantity_in_library} ta
                     </p>
+                    {isAuth && (
+                      <Button onClick={() => handleDelete(book.id)}>
+                        O'chirish
+                      </Button>
+                    )}
                   </div>
                 ))}
               </Flex>
