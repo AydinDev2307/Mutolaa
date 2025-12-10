@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Detail from './pages/Detail';
 import DetailLibraries from './pages/DetailLibraries';
 import AddBook from './pages/AddBook';
+import LoginCenter from './pages/LoginCenter';
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/libraries" element={<LIbaries />} />
           <Route path="/login" element={<Login />} />
           <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/akkaunt" element={<LoginCenter />} />
           <Route path="/detailLibraries/:id" element={<DetailLibraries />} />
           <Route path="/addBook" element={<AddBook />} />
           <Route path="*" element={<div>404 Not Found</div>} />

@@ -5,9 +5,8 @@ import { useState } from 'react';
 import authStore from '../store/authStore';
 
 const Header = ({ onSearch }) => {
-  const { isAuth, logout } = authStore();
+  const { isAuth } = authStore();
   const [query, setQuery] = useState('');
-
   function handleInput(e) {
     const value = e.target.value;
     setQuery(value);
@@ -15,8 +14,8 @@ const Header = ({ onSearch }) => {
   }
   const navigate = useNavigate();
 
-  function handleLogoClick() {
-    navigate('/');
+  function navigatee(link) {
+    navigate(link);
   }
 
   return (
@@ -144,7 +143,7 @@ const Header = ({ onSearch }) => {
             align="center"
             justify="space-between"
             style={{ padding: '16px 0' }}>
-            <h1 onClick={handleLogoClick} className="header-logo">
+            <h1 onClick={() => navigatee('/')} className="header-logo">
               Mutol<span>aa</span>
             </h1>
             <nav className="header-nav">
@@ -153,10 +152,9 @@ const Header = ({ onSearch }) => {
               <NavLink to="/libraries">Libraries</NavLink>
               {isAuth ? (
                 <Flex align="center" gap="20px">
-                  <h3 style={{ color: '#667eea' }}>Admin</h3>
-                  <Button color="red" onClick={logout}>
-                    Logout
-                  </Button>
+                  <NavLink to="/akkaunt" color="#667eea">
+                    Akkaunt
+                  </NavLink>
                   <NavLink to="/addBook">Kitob Qo'shish</NavLink>
                 </Flex>
               ) : (
