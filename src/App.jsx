@@ -12,6 +12,7 @@ import DetailLibraries from './pages/DetailLibraries';
 import AddBook from './pages/AddBook';
 import LoginCenter from './pages/LoginCenter';
 import UpdateBook from './pages/UpdateBook';
+import RegisterPage from './pages/RegisterPage';
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/detailLibraries/:id" element={<DetailLibraries />} />
           <Route path="/update-book/:id" element={<UpdateBook />} />
           <Route path="/addBook" element={<AddBook />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="*" element={<div>404 Not Found</div>} />
         </Route>
       </Routes>

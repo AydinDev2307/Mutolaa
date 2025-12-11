@@ -6,8 +6,17 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css';
+import { Container } from 'postcss';
 
-const theme = createTheme({});
+const theme = createTheme({
+  components: {
+    Container: {
+      defaultProps: {
+        size: 1320,
+      },
+    },
+  },
+});
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
