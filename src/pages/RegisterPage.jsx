@@ -29,7 +29,7 @@ const RegisterPage = () => {
             />
             <NumberInput mt={10} placeholder="Telefon raqam kiriting..." />
             <PasswordInput mt={10} placeholder="Parol kiriting..." />
-            <Input mt={10} placeholder="Manzil Kiritng" />
+            <Input mt={10} placeholder="Manzilni Kiritng" />
           </div>
 
           <div>
