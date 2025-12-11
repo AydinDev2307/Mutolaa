@@ -7,6 +7,7 @@ const authStore = create(
       user: null,
       access: null,
       isAuth: false,
+      library: null,
 
       login: (user, access) =>
         set({
@@ -15,11 +16,19 @@ const authStore = create(
           isAuth: true,
         }),
 
+      setUserData: (data) =>
+        set({
+          user: data.user,
+          library: data.library,
+          isAuth: true,
+        }),
+
       logout: () =>
         set({
           user: null,
           access: null,
           isAuth: false,
+          library: null,
         }),
     }),
     {
