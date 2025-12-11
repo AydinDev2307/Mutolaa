@@ -43,6 +43,7 @@
     "react-toastify": "^11.0.5",
     "recharts": "^3.5.1",
     "tanstack": "^1.0.3",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.9"
   },
   "devDependencies": {

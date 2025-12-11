@@ -292,9 +292,22 @@ const Home = ({ searchQuery = '' }) => {
                       Kutubxonadagi soni: {book.quantity_in_library} ta
                     </p>
                     {isAuth && (
-                      <Button onClick={() => handleDelete(book.id)}>
-                        O'chirish
-                      </Button>
+                      <div
+                        style={{
+                          display: 'flex',
+                          gap: '10px',
+                          marginTop: '10px',
+                        }}>
+                        <Button
+                          style={{ backgroundColor: 'red' }}
+                          onClick={() => handleDelete(book.id)}>
+                          O'chirish
+                        </Button>
+                        <Button
+                          onClick={() => detail(`/update-book/${book.id}`)}>
+                          Tahrirlash
+                        </Button>
+                      </div>
                     )}
                   </div>
                 ))}
