@@ -1,3 +1,4 @@
+// ============ ABOUT PAGE ============
 import React from 'react';
 import { Container, Flex } from '@mantine/core';
 
@@ -7,19 +8,35 @@ const About = () => {
       <style>{`
         .about-page {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
         }
 
         .about-hero {
           padding: 80px 0 60px;
           text-align: center;
           color: white;
+          position: relative;
+        }
+
+        .about-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+          pointer-events: none;
         }
 
         .about-hero h1 {
           font-size: 3.5rem;
           font-weight: 800;
           margin-bottom: 20px;
+          color: #FFC107;
+          text-shadow: 0 0 30px rgba(255, 193, 7, 0.3);
+          position: relative;
+          z-index: 1;
         }
 
         .about-hero p {
@@ -27,10 +44,13 @@ const About = () => {
           opacity: 0.95;
           max-width: 700px;
           margin: 0 auto;
+          color: rgba(255, 255, 255, 0.9);
+          position: relative;
+          z-index: 1;
         }
 
         .about-content {
-          background: white;
+          background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
           border-radius: 30px 30px 0 0;
           padding: 60px 0;
           margin-top: 40px;
@@ -43,14 +63,15 @@ const About = () => {
         .about-section h2 {
           font-size: 2rem;
           font-weight: 700;
-          color: #667eea;
+          color: #FFC107;
           margin-bottom: 20px;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
         }
 
         .about-section p {
           font-size: 1.1rem;
           line-height: 1.8;
-          color: #4a5568;
+          color: rgba(255, 255, 255, 0.8);
           margin-bottom: 15px;
         }
 
@@ -62,16 +83,18 @@ const About = () => {
         }
 
         .stat-card {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           padding: 40px 30px;
           border-radius: 20px;
           text-align: center;
-          color: white;
+          color: #1a1a1a;
           transition: transform 0.3s ease;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .stat-card:hover {
           transform: translateY(-10px);
+          box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
         }
 
         .stat-number {
@@ -93,44 +116,71 @@ const About = () => {
         }
 
         .team-card {
-          background: #f7fafc;
+          background: #2d2d2d;
           padding: 30px;
           border-radius: 20px;
           text-align: center;
           transition: all 0.3s ease;
-          border: 2px solid transparent;
+          border: 2px solid rgba(255, 193, 7, 0.2);
         }
 
         .team-card:hover {
           transform: translateY(-8px);
-          border-color: #667eea;
-          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+          border-color: #FFC107;
+          box-shadow: 0 10px 30px rgba(255, 193, 7, 0.3);
         }
 
         .team-avatar {
           width: 120px;
           height: 120px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           border-radius: 50%;
           margin: 0 auto 20px;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 3rem;
-          color: white;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .team-name {
           font-size: 1.3rem;
           font-weight: 700;
-          color: #2d3748;
+          color: #FFC107;
           margin-bottom: 8px;
         }
 
         .team-role {
           font-size: 1rem;
-          color: #667eea;
+          color: rgba(255, 255, 255, 0.7);
           font-weight: 600;
+        }
+
+        .feature-card {
+          flex: 1;
+          min-width: 300px;
+          padding: 30px;
+          background: #2d2d2d;
+          border-radius: 15px;
+          border: 2px solid rgba(255, 193, 7, 0.2);
+          transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+          border-color: #FFC107;
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
+        }
+
+        .feature-card h3 {
+          color: #FFC107;
+          margin-bottom: 15px;
+          font-size: 1.5rem;
+        }
+
+        .feature-card p {
+          color: rgba(255, 255, 255, 0.7);
+          line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -231,65 +281,23 @@ const About = () => {
             <div className="about-section">
               <h2>Nega Mutolaa?</h2>
               <Flex gap="20px" wrap="wrap" style={{ marginTop: '30px' }}>
-                <div
-                  style={{
-                    flex: '1',
-                    minWidth: '300px',
-                    padding: '30px',
-                    background: '#f7fafc',
-                    borderRadius: '15px',
-                  }}>
-                  <h3
-                    style={{
-                      color: '#667eea',
-                      marginBottom: '15px',
-                      fontSize: '1.5rem',
-                    }}>
-                    📚 Keng tanlash
-                  </h3>
-                  <p style={{ color: '#4a5568', lineHeight: '1.6' }}>
+                <div className="feature-card">
+                  <h3>📚 Keng tanlash</h3>
+                  <p>
                     10,000 dan ortiq kitoblar - klassik asarlardan zamonaviy
                     bestsellerlargacha
                   </p>
                 </div>
-                <div
-                  style={{
-                    flex: '1',
-                    minWidth: '300px',
-                    padding: '30px',
-                    background: '#f7fafc',
-                    borderRadius: '15px',
-                  }}>
-                  <h3
-                    style={{
-                      color: '#667eea',
-                      marginBottom: '15px',
-                      fontSize: '1.5rem',
-                    }}>
-                    🎧 Audio kitoblar
-                  </h3>
-                  <p style={{ color: '#4a5568', lineHeight: '1.6' }}>
+                <div className="feature-card">
+                  <h3>🎧 Audio kitoblar</h3>
+                  <p>
                     Professional ovozda yozilgan audio kitoblarni istalgan joyda
                     tinglang
                   </p>
                 </div>
-                <div
-                  style={{
-                    flex: '1',
-                    minWidth: '300px',
-                    padding: '30px',
-                    background: '#f7fafc',
-                    borderRadius: '15px',
-                  }}>
-                  <h3
-                    style={{
-                      color: '#667eea',
-                      marginBottom: '15px',
-                      fontSize: '1.5rem',
-                    }}>
-                    💰 Arzon narxlar
-                  </h3>
-                  <p style={{ color: '#4a5568', lineHeight: '1.6' }}>
+                <div className="feature-card">
+                  <h3>💰 Arzon narxlar</h3>
+                  <p>
                     Oyiga atiga bir necha ming so'm evaziga cheksiz kitoblar
                     o'qing
                   </p>

@@ -38,30 +38,44 @@ const Login = () => {
       <style>{`
         .login-page {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 40px 20px;
+          position: relative;
+        }
+
+        .login-page::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 30% 50%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+          pointer-events: none;
         }
 
         .login-container {
-          background: white;
+          background: #2d2d2d;
           border-radius: 30px;
           padding: 60px 50px;
           max-width: 500px;
           width: 100%;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 20px 60px rgba(255, 193, 7, 0.3);
           position: relative;
+          border: 2px solid rgba(255, 193, 7, 0.2);
+          z-index: 1;
         }
 
         .back-button {
           position: absolute;
           top: 30px;
           left: 30px;
-          background: rgba(102, 126, 234, 0.1);
-          color: #667eea;
-          border: none;
+          background: rgba(255, 193, 7, 0.2);
+          color: #FFC107;
+          border: 2px solid rgba(255, 193, 7, 0.3);
           padding: 10px 20px;
           border-radius: 10px;
           font-size: 0.95rem;
@@ -75,9 +89,10 @@ const Login = () => {
         }
 
         .back-button:hover {
-          background: #667eea;
-          color: white;
+          background: #FFC107;
+          color: #1a1a1a;
           transform: translateX(-3px);
+          box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
         }
 
         .login-header {
@@ -89,24 +104,25 @@ const Login = () => {
         .login-logo {
           font-size: 2.5rem;
           font-weight: 800;
-          color: #667eea;
+          color: #FFC107;
           margin-bottom: 10px;
+          text-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
         }
 
         .login-logo span {
-          color: #FFD93D;
+          color: #FFD54F;
         }
 
         .login-title {
           font-size: 2rem;
           font-weight: 700;
-          color: #2d3748;
+          color: #FFC107;
           margin-bottom: 10px;
         }
 
         .login-subtitle {
           font-size: 1rem;
-          color: #718096;
+          color: rgba(255, 255, 255, 0.7);
           line-height: 1.5;
         }
 
@@ -118,38 +134,48 @@ const Login = () => {
           display: block;
           font-size: 0.9rem;
           font-weight: 600;
-          color: #4a5568;
+          color: #FFC107;
           margin-bottom: 8px;
         }
 
         .mantine-Input-input {
           padding: 14px 18px !important;
           font-size: 1rem !important;
-          border: 2px solid #e2e8f0 !important;
+          border: 2px solid rgba(255, 193, 7, 0.3) !important;
           border-radius: 12px !important;
           transition: all 0.3s ease !important;
-          background: #f7fafc !important;
+          background: #1a1a1a !important;
+          color: white !important;
         }
 
         .mantine-Input-input:focus {
-          border-color: #667eea !important;
-          background: white !important;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+          border-color: #FFC107 !important;
+          background: #0a0a0a !important;
+          box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2) !important;
+        }
+
+        .mantine-Input-input::placeholder {
+          color: rgba(255, 255, 255, 0.4) !important;
         }
 
         .mantine-PasswordInput-input {
           padding: 14px 18px !important;
           font-size: 1rem !important;
-          border: 2px solid #e2e8f0 !important;
+          border: 2px solid rgba(255, 193, 7, 0.3) !important;
           border-radius: 12px !important;
           transition: all 0.3s ease !important;
-          background: #f7fafc !important;
+          background: #1a1a1a !important;
+          color: white !important;
         }
 
         .mantine-PasswordInput-input:focus {
-          border-color: #667eea !important;
-          background: white !important;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+          border-color: #FFC107 !important;
+          background: #0a0a0a !important;
+          box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2) !important;
+        }
+
+        .mantine-PasswordInput-input::placeholder {
+          color: rgba(255, 255, 255, 0.4) !important;
         }
 
         .mantine-Button-root {
@@ -157,34 +183,36 @@ const Login = () => {
           height: 46px !important;
           font-size: 1.1rem !important;
           font-weight: 700 !important;
-          color: white !important;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+          color: #1a1a1a !important;
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%) !important;
           border: none !important;
           border-radius: 12px !important;
           cursor: pointer !important;
           transition: all 0.3s ease !important;
           margin-top: 10px !important;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3) !important;
         }
 
         .mantine-Button-root:hover {
           transform: translateY(-2px) !important;
-          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
+          box-shadow: 0 8px 20px rgba(255, 193, 7, 0.5) !important;
         }
 
         .toggle-form {
           text-align: center;
           margin-top: 25px;
           font-size: 0.95rem;
-          color: #718096;
+          color: rgba(255, 255, 255, 0.7);
         }
 
         .toggle-link {
-          color: #667eea;
+          color: #FFC107;
           font-weight: 600;
           text-decoration: none;
         }
 
         .toggle-link:hover {
+          color: #FFD54F;
           text-decoration: underline;
         }
 

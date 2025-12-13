@@ -18,7 +18,6 @@ const DetailLibraries = () => {
         setLoading(true);
         setError(null);
         const allLibraries = await Libraries.get('/libraries/libraries');
-        console.log('All libraries:', allLibraries.data);
         const foundLibrary = Array.isArray(allLibraries.data)
           ? allLibraries.data.find((lib) => lib.id === parseInt(id))
           : null;
@@ -27,7 +26,6 @@ const DetailLibraries = () => {
           setLoading(false);
           return;
         }
-        console.log('Found library:', foundLibrary);
         setLibrary(foundLibrary);
 
         if (foundLibrary.category) {
@@ -63,15 +61,15 @@ const DetailLibraries = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
         }}>
-        <div style={{ textAlign: 'center', color: 'white' }}>
+        <div style={{ textAlign: 'center', color: '#FFC107' }}>
           <div
             style={{
               width: '60px',
               height: '60px',
-              border: '4px solid rgba(255,255,255,0.3)',
-              borderTop: '4px solid white',
+              border: '4px solid rgba(255, 193, 7, 0.3)',
+              borderTop: '4px solid #FFC107',
               borderRadius: '50%',
               animation: 'spin 1s linear infinite',
               margin: '0 auto 20px',
@@ -96,14 +94,26 @@ const DetailLibraries = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
         }}>
         <div style={{ textAlign: 'center', color: 'white', padding: '40px' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>❌</h2>
-          <h3 style={{ marginBottom: '20px' }}>
+          <h2
+            style={{
+              fontSize: '2.5rem',
+              marginBottom: '20px',
+              color: '#FFC107',
+            }}>
+            ❌
+          </h2>
+          <h3 style={{ marginBottom: '20px', color: '#FFC107' }}>
             {error || 'Kutubxona topilmadi'}
           </h3>
-          <p style={{ marginBottom: '30px', opacity: 0.9 }}>
+          <p
+            style={{
+              marginBottom: '30px',
+              opacity: 0.8,
+              color: 'rgba(255, 255, 255, 0.7)',
+            }}>
             ID: {id} - bu kutubxona mavjud emas
           </p>
           <div
@@ -112,8 +122,8 @@ const DetailLibraries = () => {
               onClick={() => navigate('/libraries')}
               style={{
                 padding: '12px 30px',
-                background: 'white',
-                color: '#667eea',
+                background: 'linear-gradient(135deg, #FFC107 0%, #FFD54F 100%)',
+                color: '#1a1a1a',
                 border: 'none',
                 borderRadius: '10px',
                 cursor: 'pointer',
@@ -126,9 +136,9 @@ const DetailLibraries = () => {
               onClick={() => window.location.reload()}
               style={{
                 padding: '12px 30px',
-                background: 'rgba(255,255,255,0.2)',
-                color: 'white',
-                border: '2px solid white',
+                background: 'rgba(255, 193, 7, 0.2)',
+                color: '#FFC107',
+                border: '2px solid #FFC107',
                 borderRadius: '10px',
                 cursor: 'pointer',
                 fontSize: '1rem',
@@ -149,18 +159,30 @@ const DetailLibraries = () => {
       <style>{`
         .detail-page {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
         }
 
         .detail-hero {
           padding: 80px 0 60px;
           color: white;
+          position: relative;
+        }
+
+        .detail-hero::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 30% 50%, rgba(255, 193, 7, 0.1) 0%, transparent 60%);
+          pointer-events: none;
         }
 
         .back-button {
-          background: rgba(255, 255, 255, 0.2);
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          color: white;
+          background: rgba(255, 193, 7, 0.2);
+          border: 2px solid rgba(255, 193, 7, 0.3);
+          color: #FFC107;
           padding: 12px 24px;
           border-radius: 12px;
           cursor: pointer;
@@ -168,11 +190,15 @@ const DetailLibraries = () => {
           font-weight: 600;
           transition: all 0.3s ease;
           margin-bottom: 30px;
+          position: relative;
+          z-index: 1;
         }
 
         .back-button:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: #FFC107;
+          color: #1a1a1a;
           transform: translateX(-5px);
+          box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
         }
 
         .library-header {
@@ -180,18 +206,21 @@ const DetailLibraries = () => {
           align-items: center;
           gap: 30px;
           margin-bottom: 30px;
+          position: relative;
+          z-index: 1;
         }
 
         .library-icon-large {
           width: 120px;
           height: 120px;
-          background: white;
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           border-radius: 20px;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 4rem;
           flex-shrink: 0;
+          box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
         }
 
         .library-title {
@@ -203,6 +232,8 @@ const DetailLibraries = () => {
           font-weight: 800;
           margin-bottom: 15px;
           line-height: 1.2;
+          color: #FFC107;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
         }
 
         .library-meta {
@@ -216,28 +247,30 @@ const DetailLibraries = () => {
           align-items: center;
           gap: 10px;
           font-size: 1.1rem;
-          opacity: 0.95;
+          color: rgba(255, 255, 255, 0.9);
         }
 
         .detail-content {
-          background: white;
+          background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
           border-radius: 30px 30px 0 0;
           padding: 60px 0;
           margin-top: 40px;
         }
 
         .info-section {
-          background: #f7fafc;
+          background: #2d2d2d;
           border-radius: 20px;
           padding: 40px;
           margin-bottom: 40px;
+          border: 2px solid rgba(255, 193, 7, 0.2);
         }
 
         .info-section h2 {
           font-size: 2rem;
-          color: #2d3748;
+          color: #FFC107;
           margin-bottom: 25px;
           font-weight: 700;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
         }
 
         .info-grid {
@@ -247,22 +280,29 @@ const DetailLibraries = () => {
         }
 
         .info-card {
-          background: white;
+          background: #1a1a1a;
           padding: 25px;
           border-radius: 15px;
-          border: 2px solid #e2e8f0;
+          border: 2px solid rgba(255, 193, 7, 0.2);
+          transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+          border-color: #FFC107;
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
         }
 
         .info-label {
           font-size: 0.9rem;
-          color: #718096;
+          color: rgba(255, 255, 255, 0.6);
           margin-bottom: 8px;
         }
 
         .info-value {
           font-size: 1.2rem;
           font-weight: 700;
-          color: #2d3748;
+          color: #FFC107;
         }
 
         .similar-section {
@@ -278,13 +318,14 @@ const DetailLibraries = () => {
 
         .section-title {
           font-size: 2rem;
-          color: #667eea;
+          color: #FFC107;
           font-weight: 700;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
         }
 
         .toggle-button {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+          color: #1a1a1a;
           border: none;
           padding: 12px 30px;
           border-radius: 12px;
@@ -292,11 +333,12 @@ const DetailLibraries = () => {
           font-size: 1rem;
           font-weight: 600;
           transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .toggle-button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+          box-shadow: 0 10px 25px rgba(255, 193, 7, 0.5);
         }
 
         .similar-grid {
@@ -306,8 +348,8 @@ const DetailLibraries = () => {
         }
 
         .similar-card {
-          background: white;
-          border: 2px solid #e2e8f0;
+          background: #2d2d2d;
+          border: 2px solid rgba(255, 193, 7, 0.2);
           border-radius: 15px;
           padding: 25px;
           transition: all 0.3s ease;
@@ -316,26 +358,27 @@ const DetailLibraries = () => {
 
         .similar-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
-          border-color: #667eea;
+          box-shadow: 0 10px 25px rgba(255, 193, 7, 0.4);
+          border-color: #FFC107;
         }
 
         .similar-icon {
           width: 60px;
           height: 60px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 2rem;
           margin-bottom: 15px;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .similar-name {
           font-size: 1.2rem;
           font-weight: 700;
-          color: #2d3748;
+          color: #FFC107;
           margin-bottom: 12px;
         }
 
@@ -350,7 +393,7 @@ const DetailLibraries = () => {
           align-items: center;
           gap: 8px;
           font-size: 0.9rem;
-          color: #718096;
+          color: rgba(255, 255, 255, 0.7);
         }
 
         @media (max-width: 768px) {

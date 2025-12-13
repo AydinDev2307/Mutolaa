@@ -9,6 +9,7 @@ const Home = ({ searchQuery = '' }) => {
   const [popularBooks, setPopularBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  
   const fetchBooks = async () => {
     try {
       const res = await BooksAPI.get('/books/books');
@@ -19,7 +20,9 @@ const Home = ({ searchQuery = '' }) => {
       setLoading(false);
     }
   };
+  
   const detail = useNavigate();
+  
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -35,12 +38,15 @@ const Home = ({ searchQuery = '' }) => {
       alert('Xatolik: ' + JSON.stringify(err.response?.data));
     }
   };
+  
   const filteredBooks = popularBooks.filter(
     (book) =>
       book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       book.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  
   const displayedBooks = showAll ? filteredBooks : filteredBooks.slice(0, 6);
+  
   return (
     <>
       <style>{`
@@ -52,14 +58,32 @@ const Home = ({ searchQuery = '' }) => {
 
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
           min-height: 100vh;
         }
 
         .hero-section {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
           padding: 60px 0;
           color: white;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .hero-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 20% 50%, rgba(255, 193, 7, 0.15) 0%, transparent 50%);
+          pointer-events: none;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 1;
         }
 
         .hero-content h1 {
@@ -67,27 +91,35 @@ const Home = ({ searchQuery = '' }) => {
           font-weight: 800;
           margin-bottom: 20px;
           line-height: 1.2;
+          color: white;
+        }
+
+        .hero-content .highlight {
+          color: #FFC107;
+          text-shadow: 0 0 30px rgba(255, 193, 7, 0.5);
         }
 
         .hero-content p {
           font-size: 1.2rem;
           opacity: 0.95;
           line-height: 1.6;
+          color: rgba(255, 255, 255, 0.9);
         }
 
         .download-btn {
-          background: white;
-          color: #667eea;
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+          color: #1a1a1a;
           padding: 15px 25px;
           border-radius: 12px;
           cursor: pointer;
           transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+          border: none;
         }
 
         .download-btn:hover {
           transform: translateY(-3px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
         }
 
         .download-btn p {
@@ -104,36 +136,42 @@ const Home = ({ searchQuery = '' }) => {
         .video-container {
           border-radius: 20px;
           overflow: hidden;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          box-shadow: 0 10px 40px rgba(255, 193, 7, 0.3);
           transition: transform 0.3s ease;
+          border: 2px solid rgba(255, 193, 7, 0.3);
+          position: relative;
+          z-index: 1;
         }
 
         .video-container:hover {
           transform: scale(1.02);
+          box-shadow: 0 15px 50px rgba(255, 193, 7, 0.4);
         }
 
         .books-section {
-          background: white;
+          background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
           padding: 60px 0;
           margin-top: 40px;
           border-radius: 30px 30px 0 0;
+          position: relative;
         }
 
         .section-header h2 {
           font-size: 2rem;
           font-weight: 700;
-          color: #667eea;
+          color: #FFC107;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
         }
 
         .section-header h4 {
-          color: #667eea;
+          color: #FFC107;
           cursor: pointer;
           font-weight: 600;
           transition: all 0.3s ease;
         }
 
         .section-header h4:hover {
-          color: #764ba2;
+          color: #FFD54F;
           transform: translateX(5px);
         }
 
@@ -141,28 +179,28 @@ const Home = ({ searchQuery = '' }) => {
           text-align: center;
           padding: 40px;
           font-size: 1.2rem;
-          color: #667eea;
+          color: #FFC107;
         }
 
         .book-card {
           width: 388px;
           padding: 20px;
-          border: 2px solid #f0f0f0;
+          border: 2px solid rgba(255, 193, 7, 0.2);
           border-radius: 16px;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: white;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+          background: #2d2d2d;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .book-card:hover {
           transform: translateY(-8px);
-          box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
-          border-color: #667eea;
+          box-shadow: 0 12px 24px rgba(255, 193, 7, 0.4);
+          border-color: #FFC107;
         }
 
         .book-card h4 {
-          color: #2d3748;
+          color: #FFC107;
           font-size: 1.1rem;
           margin-bottom: 12px;
           font-weight: 700;
@@ -171,7 +209,7 @@ const Home = ({ searchQuery = '' }) => {
 
         .book-card p {
           font-size: 0.9rem;
-          color: #718096;
+          color: rgba(255, 255, 255, 0.7);
           margin-bottom: 8px;
           line-height: 1.5;
         }
@@ -179,7 +217,7 @@ const Home = ({ searchQuery = '' }) => {
         .book-image {
           width: 100%;
           height: 280px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           border-radius: 12px;
           margin-bottom: 15px;
           display: flex;
@@ -188,6 +226,34 @@ const Home = ({ searchQuery = '' }) => {
           color: white;
           font-size: 3rem;
           font-weight: 700;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+          transition: all 0.3s ease;
+        }
+
+        .book-image:hover {
+          transform: scale(1.02);
+          box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
+        }
+
+        .delete-btn {
+          background: #dc2626 !important;
+          transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+          background: #b91c1c !important;
+          transform: translateY(-2px);
+        }
+
+        .edit-btn {
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%) !important;
+          color: #1a1a1a !important;
+          transition: all 0.3s ease;
+        }
+
+        .edit-btn:hover {
+          background: linear-gradient(135deg, #FFD54F 0%, #FFC107 100%) !important;
+          transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
@@ -202,6 +268,11 @@ const Home = ({ searchQuery = '' }) => {
           .book-card {
             width: 180px;
           }
+
+          .video-container iframe {
+            width: 100%;
+            height: 200px;
+          }
         }
       `}</style>
 
@@ -215,7 +286,7 @@ const Home = ({ searchQuery = '' }) => {
               gap="40px">
               <div className="hero-content" style={{ width: '500px' }}>
                 <h1>
-                  <span style={{ color: '#FFD93D' }}>"Mutolaa"</span> - eng sara
+                  <span className="highlight">"Mutolaa"</span> - eng sara
                   audio va elektron kitoblar!
                 </h1>
                 <p>
@@ -265,7 +336,7 @@ const Home = ({ searchQuery = '' }) => {
                   <h4
                     style={{ cursor: 'pointer' }}
                     onClick={() => setShowAll(!showAll)}>
-                    {showAll ? 'Yana 6 ta ko‘rsatish' : "Hammasini ko'rish →"}
+                    {showAll ? 'Yana 6 ta ko\'rsatish' : "Hammasini ko'rish →"}
                   </h4>
                 </Flex>
               </div>
@@ -282,13 +353,13 @@ const Home = ({ searchQuery = '' }) => {
                       📚
                     </div>
                     <h4>Nomi: {book.name}</h4>
-                    <p style={{ fontSize: '14px', color: 'gray' }}>
+                    <p style={{ fontSize: '14px' }}>
                       Yozuvchi: {book.author}
                     </p>
-                    <p style={{ fontSize: '14px', color: 'gray' }}>
+                    <p style={{ fontSize: '14px' }}>
                       Nashiryot: {book.publisher}
                     </p>
-                    <p style={{ fontSize: '14px', color: 'gray' }}>
+                    <p style={{ fontSize: '14px' }}>
                       Kutubxonadagi soni: {book.quantity_in_library} ta
                     </p>
                     {isAuth && (
@@ -299,11 +370,12 @@ const Home = ({ searchQuery = '' }) => {
                           marginTop: '10px',
                         }}>
                         <Button
-                          style={{ backgroundColor: 'red' }}
+                          className="delete-btn"
                           onClick={() => handleDelete(book.id)}>
                           O'chirish
                         </Button>
                         <Button
+                          className="edit-btn"
                           onClick={() => detail(`/update-book/${book.id}`)}>
                           Tahrirlash
                         </Button>

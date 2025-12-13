@@ -14,6 +14,7 @@ const UpdateBook = () => {
     publisher: '',
     quantity_in_library: '',
   });
+
   useEffect(() => {
     const fetchBook = async () => {
       try {
@@ -29,7 +30,6 @@ const UpdateBook = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     try {
       const res = await BooksAPI.put(
         `/books/book/${id}/`,
@@ -45,7 +45,6 @@ const UpdateBook = () => {
           },
         }
       );
-
       alert('Kitob muvaffaqiyatli yangilandi!');
       console.log(res.data);
       home('/');
@@ -58,46 +57,70 @@ const UpdateBook = () => {
   };
 
   return (
-    <Container>
-      <form
-        onSubmit={handleUpdate}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          maxWidth: '400px',
-          margin: '50px auto',
-        }}>
-        <Input
-          placeholder="Kitob nomi"
-          value={book.name}
-          onChange={(e) => setBook({ ...book, name: e.target.value })}
-        />
+    <>
+      <style>{`
+        .update-page {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+          padding: 60px 20px;
+        }
 
-        <Input
-          placeholder="Muallif"
-          value={book.author}
-          onChange={(e) => setBook({ ...book, author: e.target.value })}
-        />
+        .update-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          max-width: 500px;
+          margin: 0 auto;
+          background: #2d2d2d;
+          padding: 40px;
+          border-radius: 20px;
+          border: 2px solid rgba(255, 193, 7, 0.2);
+          box-shadow: 0 10px 30px rgba(255, 193, 7, 0.2);
+        }
 
-        <Input
-          placeholder="Nashriyot"
-          value={book.publisher}
-          onChange={(e) => setBook({ ...book, publisher: e.target.value })}
-        />
+        .update-title {
+          text-align: center;
+          font-size: 2rem;
+          font-weight: 800;
+          color: #FFC107;
+          margin-bottom: 20px;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
+        }
+      `}</style>
 
-        <Input
-          placeholder="Kitoblar soni"
-          type="number"
-          value={book.quantity_in_library}
-          onChange={(e) =>
-            setBook({ ...book, quantity_in_library: e.target.value })
-          }
-        />
+      <div className="update-page">
+        <Container>
+          <form onSubmit={handleUpdate} className="update-form">
+            <h1 className="update-title">Kitobni Yangilash</h1>
 
-        <Button type="submit">Kitobni yangilash</Button>
-      </form>
-    </Container>
+            <Input
+              placeholder="Kitob nomi"
+              value={book.name}
+              onChange={(e) => setBook({ ...book, name: e.target.value })}
+            />
+            <Input
+              placeholder="Muallif"
+              value={book.author}
+              onChange={(e) => setBook({ ...book, author: e.target.value })}
+            />
+            <Input
+              placeholder="Nashriyot"
+              value={book.publisher}
+              onChange={(e) => setBook({ ...book, publisher: e.target.value })}
+            />
+            <Input
+              placeholder="Kitoblar soni"
+              type="number"
+              value={book.quantity_in_library}
+              onChange={(e) =>
+                setBook({ ...book, quantity_in_library: e.target.value })
+              }
+            />
+            <Button type="submit">Kitobni yangilash</Button>
+          </form>
+        </Container>
+      </div>
+    </>
   );
 };
 

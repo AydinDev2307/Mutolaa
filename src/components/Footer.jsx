@@ -3,10 +3,22 @@ const Footer = () => {
     <>
       <style>{`
         footer {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
           color: white;
           padding: 60px 0 30px;
           margin-top: 80px;
+          border-top: 2px solid rgba(255, 193, 7, 0.2);
+          position: relative;
+        }
+
+        footer::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #FFC107, transparent);
         }
 
         .footer-container {
@@ -32,17 +44,18 @@ const Footer = () => {
           font-size: 2rem;
           font-weight: 800;
           margin-bottom: 15px;
-          color: white;
+          color: #FFC107;
+          text-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
         }
 
         .footer-logo span {
-          color: #FFD93D;
+          color: #FFD54F;
         }
 
         .footer-description {
           font-size: 0.95rem;
           line-height: 1.6;
-          opacity: 0.9;
+          color: rgba(255, 255, 255, 0.7);
           margin-bottom: 20px;
         }
 
@@ -50,7 +63,7 @@ const Footer = () => {
           font-size: 1.2rem;
           font-weight: 700;
           margin-bottom: 20px;
-          color: white;
+          color: #FFC107;
         }
 
         .footer-links {
@@ -63,18 +76,16 @@ const Footer = () => {
         }
 
         .footer-links a {
-          color: white;
+          color: rgba(255, 255, 255, 0.7);
           text-decoration: none;
           font-size: 0.95rem;
-          opacity: 0.85;
           transition: all 0.3s ease;
           display: inline-block;
         }
 
         .footer-links a:hover {
-          opacity: 1;
+          color: #FFC107;
           transform: translateX(5px);
-          color: #FFD93D;
         }
 
         .footer-social {
@@ -86,32 +97,34 @@ const Footer = () => {
         .social-icon {
           width: 40px;
           height: 40px;
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 193, 7, 0.2);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: #FFC107;
           text-decoration: none;
           font-weight: bold;
           transition: all 0.3s ease;
+          border: 1px solid rgba(255, 193, 7, 0.3);
         }
 
         .social-icon:hover {
-          background: white;
-          color: #667eea;
+          background: #FFC107;
+          color: #1a1a1a;
           transform: translateY(-3px);
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
         }
 
         .footer-bottom {
-          border-top: 1px solid rgba(255, 255, 255, 0.2);
+          border-top: 1px solid rgba(255, 193, 7, 0.2);
           padding-top: 30px;
           text-align: center;
         }
 
         .footer-bottom p {
           font-size: 0.9rem;
-          opacity: 0.85;
+          color: rgba(255, 255, 255, 0.6);
           margin: 5px 0;
         }
 
@@ -119,23 +132,24 @@ const Footer = () => {
           display: flex;
           gap: 15px;
           margin-top: 20px;
+          flex-wrap: wrap;
         }
 
         .download-badge {
-          background: white;
-          color: #667eea;
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+          color: #1a1a1a;
           padding: 12px 20px;
           border-radius: 10px;
           text-decoration: none;
           font-weight: 600;
           font-size: 0.9rem;
           transition: all 0.3s ease;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
         }
 
         .download-badge:hover {
           transform: translateY(-3px);
-          box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+          box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5);
         }
 
         @media (max-width: 768px) {

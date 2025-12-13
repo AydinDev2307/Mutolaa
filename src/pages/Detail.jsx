@@ -1,3 +1,4 @@
+// ============ DETAIL PAGE (Kitob Tafsilotlari) ============
 import { Loader, Text, Grid } from '@mantine/core';
 import { Container, Flex } from '@mantine/core';
 import axios from 'axios';
@@ -28,7 +29,9 @@ const Detail = () => {
     };
     fetchProduct();
   }, [id]);
+
   const sliceBooks = showAll ? similar : similar.slice(0, 6);
+
   if (!product)
     return (
       <div
@@ -37,11 +40,11 @@ const Detail = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)',
         }}>
         <div style={{ textAlign: 'center' }}>
-          <Loader size="xl" color="white" />
-          <Text size="lg" style={{ color: 'white', marginTop: '20px' }}>
+          <Loader size="xl" color="#FFC107" />
+          <Text size="lg" style={{ color: '#FFC107', marginTop: '20px' }}>
             Yuklanmoqda...
           </Text>
         </div>
@@ -53,16 +56,17 @@ const Detail = () => {
       <style>{`
         .detail-page {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          padding: 40px 0 80px;
+          background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+          padding: 40px 0 80px; 
         }
 
         .detail-hero {
-          background: white;
+          background: #2d2d2d;
           border-radius: 30px;
           padding: 50px;
           margin-bottom: 60px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 20px 60px rgba(255, 193, 7, 0.2);
+          border: 2px solid rgba(255, 193, 7, 0.2);
         }
 
         .detail-content {
@@ -78,7 +82,7 @@ const Detail = () => {
         .detail-book-image {
           width: 350px;
           height: 500px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           border-radius: 20px;
           display: flex;
           align-items: center;
@@ -86,7 +90,7 @@ const Detail = () => {
           color: white;
           font-size: 5rem;
           font-weight: 700;
-          box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+          box-shadow: 0 15px 40px rgba(255, 193, 7, 0.4);
         }
 
         .detail-info {
@@ -96,9 +100,10 @@ const Detail = () => {
         .detail-title {
           font-size: 2.5rem;
           font-weight: 800;
-          color: #2d3748;
+          color: #FFC107;
           margin-bottom: 20px;
           line-height: 1.3;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
         }
 
         .detail-meta {
@@ -118,7 +123,7 @@ const Detail = () => {
         .meta-icon {
           width: 45px;
           height: 45px;
-          background: rgba(102, 126, 234, 0.1);
+          background: rgba(255, 193, 7, 0.2);
           border-radius: 12px;
           display: flex;
           align-items: center;
@@ -129,12 +134,12 @@ const Detail = () => {
 
         .meta-label {
           font-weight: 600;
-          color: #667eea;
+          color: #FFC107;
           min-width: 120px;
         }
 
         .meta-value {
-          color: #4a5568;
+          color: rgba(255, 255, 255, 0.8);
           font-weight: 500;
         }
 
@@ -155,55 +160,61 @@ const Detail = () => {
         }
 
         .btn-primary {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+          color: #1a1a1a;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .btn-primary:hover {
           transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+          box-shadow: 0 10px 25px rgba(255, 193, 7, 0.5);
         }
 
         .btn-secondary {
-          background: white;
-          color: #667eea;
-          border: 2px solid #667eea;
+          background: transparent;
+          color: #FFC107;
+          border: 2px solid #FFC107;
         }
 
         .btn-secondary:hover {
-          background: #667eea;
-          color: white;
+          background: #FFC107;
+          color: #1a1a1a;
           transform: translateY(-3px);
         }
 
         .similar-section {
-          background: white;
+          background: #2d2d2d;
           border-radius: 30px;
           padding: 50px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 20px 60px rgba(255, 193, 7, 0.2);
+          border: 2px solid rgba(255, 193, 7, 0.2);
         }
+        
         h4 {
-          color: white;
+          color: #FFC107;
           cursor: pointer;
           font-weight: 600;
           transition: all 0.3s ease;
           font-size: 1.2rem;
-        }
-
-         h4:hover {
-          color: #764ba2;
-          transform: translateX(5px);
-        }
-        .section-title {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #667eea;
           margin-bottom: 30px;
         }
 
+        h4:hover {
+          color: #FFD54F;
+          transform: translateX(5px);
+        }
+        
+        .section-title {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #FFC107;
+          margin-bottom: 30px;
+          text-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
+        }
+
         .similar-card {
-          background: white;
-          border: 2px solid #e2e8f0;
+          background: #1a1a1a;
+          border: 2px solid rgba(255, 193, 7, 0.2);
           border-radius: 16px;
           padding: 20px;
           cursor: pointer;
@@ -213,14 +224,14 @@ const Detail = () => {
 
         .similar-card:hover {
           transform: translateY(-8px);
-          box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
-          border-color: #667eea;
+          box-shadow: 0 12px 24px rgba(255, 193, 7, 0.4);
+          border-color: #FFC107;
         }
 
         .similar-image {
           width: 100%;
           height: 250px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
           border-radius: 12px;
           display: flex;
           align-items: center;
@@ -229,19 +240,20 @@ const Detail = () => {
           font-size: 3rem;
           font-weight: 700;
           margin-bottom: 15px;
+          box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .similar-title {
           font-size: 1.1rem;
           font-weight: 600;
-          color: #2d3748;
+          color: #FFC107;
           line-height: 1.4;
         }
 
         .back-button {
-          background: white;
-          color: #667eea;
-          border: none;
+          background: rgba(255, 193, 7, 0.2);
+          color: #FFC107;
+          border: 2px solid rgba(255, 193, 7, 0.3);
           padding: 12px 24px;
           border-radius: 12px;
           font-size: 1rem;
@@ -255,8 +267,10 @@ const Detail = () => {
         }
 
         .back-button:hover {
+          background: #FFC107;
+          color: #1a1a1a;
           transform: translateX(-5px);
-          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+          box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -358,11 +372,11 @@ const Detail = () => {
               </div>
             </div>
           </div>
-          <h4
-            style={{ cursor: 'pointer' }}
-            onClick={() => setShowAll(!showAll)}>
-            {showAll ? 'Yana 6 ta ko‘rsatish' : "Hammasini ko'rish →"}
+
+          <h4 onClick={() => setShowAll(!showAll)}>
+            {showAll ? "Yana 6 ta ko'rsatish" : "Hammasini ko'rish →"}
           </h4>
+
           {sliceBooks.length > 0 && (
             <div className="similar-section">
               <h2 className="section-title">O'xshash kitoblar</h2>
@@ -383,7 +397,7 @@ const Detail = () => {
                       <p
                         style={{
                           fontSize: '0.9rem',
-                          color: '#718096',
+                          color: 'rgba(255, 255, 255, 0.6)',
                           marginTop: '8px',
                         }}>
                         {item.author}

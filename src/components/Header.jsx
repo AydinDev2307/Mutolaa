@@ -7,11 +7,13 @@ import authStore from '../store/authStore';
 const Header = ({ onSearch }) => {
   const { isAuth } = authStore();
   const [query, setQuery] = useState('');
+
   function handleInput(e) {
     const value = e.target.value;
     setQuery(value);
     onSearch(value);
   }
+
   const navigate = useNavigate();
 
   function navigatee(link) {
@@ -22,29 +24,32 @@ const Header = ({ onSearch }) => {
     <>
       <style>{`
         header {
-          background: white;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          background: #1a1a1a;
+          box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
           position: sticky;
           top: 0;
           z-index: 1000;
           backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(255, 193, 7, 0.2);
         }
 
         .header-logo {
           font-size: 1.8rem;
           font-weight: 800;
           cursor: pointer;
-          color: #667eea;
+          color: #FFC107;
           transition: all 0.3s ease;
           user-select: none;
+          text-shadow: 0 0 20px rgba(255, 193, 7, 0.3);
         }
 
         .header-logo:hover {
           transform: scale(1.05);
+          text-shadow: 0 0 30px rgba(255, 193, 7, 0.5);
         }
 
         .header-logo span {
-          color: #FFD93D;
+          color: #FFD54F;
         }
 
         .header-nav {
@@ -54,7 +59,7 @@ const Header = ({ onSearch }) => {
         }
 
         .header-nav a {
-          color: #4a5568;
+          color: rgba(255, 255, 255, 0.8);
           text-decoration: none;
           font-weight: 600;
           font-size: 1rem;
@@ -65,13 +70,13 @@ const Header = ({ onSearch }) => {
         }
 
         .header-nav a:hover {
-          color: #667eea;
-          background: rgba(102, 126, 234, 0.1);
+          color: #FFC107;
+          background: rgba(255, 193, 7, 0.1);
         }
 
         .header-nav a.active {
-          color: #667eea;
-          background: rgba(102, 126, 234, 0.15);
+          color: #FFC107;
+          background: rgba(255, 193, 7, 0.15);
         }
 
         .header-nav a::after {
@@ -82,7 +87,7 @@ const Header = ({ onSearch }) => {
           transform: translateX(-50%) scaleX(0);
           width: 80%;
           height: 2px;
-          background: #667eea;
+          background: #FFC107;
           transition: transform 0.3s ease;
         }
 
@@ -93,24 +98,25 @@ const Header = ({ onSearch }) => {
 
         .search-input {
           padding: 10px 20px;
-          border: 2px solid #e2e8f0;
+          border: 2px solid rgba(255, 193, 7, 0.3);
           border-radius: 25px;
           outline: none;
           font-size: 0.95rem;
           width: 250px;
           transition: all 0.3s ease;
-          background: #f7fafc;
+          background: #2d2d2d;
+          color: white;
         }
 
         .search-input:focus {
-          border-color: #667eea;
-          background: white;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+          border-color: #FFC107;
+          background: #1a1a1a;
+          box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
           width: 280px;
         }
 
         .search-input::placeholder {
-          color: #a0aec0;
+          color: rgba(255, 255, 255, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -152,9 +158,7 @@ const Header = ({ onSearch }) => {
               <NavLink to="/libraries">Libraries</NavLink>
               {isAuth ? (
                 <Flex align="center" gap="20px">
-                  <NavLink to="/akkaunt" color="#667eea">
-                    Akkaunt
-                  </NavLink>
+                  <NavLink to="/akkaunt">Akkaunt</NavLink>
                   <NavLink to="/addBook">Kitob Qo'shish</NavLink>
                 </Flex>
               ) : (
